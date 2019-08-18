@@ -210,37 +210,42 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
     }
 
 
-    public void fillTo(int step)
+    public void fillTo(final int step)
     {
-        step = Math.min(step, steps);
-
-        final float target = dots.get(step-1).getX() - dots.get(0).getX();
-
-        final float start = (float)filledTrack.getMeasuredWidth()/(float)emptyTrack.getMeasuredWidth();
-
-
-
-        final float scale = target/filledTrack.getMeasuredWidth();
-
-        ObjectAnimator fillBar = ObjectAnimator.ofFloat(filledTrack,"scaleX",scale);
-        fillBar.setDuration(getResources().getInteger(R.integer.fill_duration));
-        fillBar.setAutoCancel(true);
-        fillBar.setInterpolator(new DecelerateInterpolator(2));
-        fillBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+        Utils.doOnceOnGlobalLayoutOfView(this, new Runnable() {
             @Override
-            public void onAnimationUpdate(ValueAnimator animation) {
-                int percent = (int)(100.0f*animation.getAnimatedFraction());
-                tvIndicator.setText((int)(1+start+(scale/emptyTrack.getMeasuredWidth()-start)*percent)+"%");
+            public void run() {
+                int minStep = Math.min(step, steps);
 
+                final float target = dots.get(minStep-1).getX() - dots.get(0).getX();
+
+                final float start = (float)filledTrack.getMeasuredWidth()/(float)emptyTrack.getMeasuredWidth();
+
+
+
+                final float scale = target/filledTrack.getMeasuredWidth();
+
+                ObjectAnimator fillBar = ObjectAnimator.ofFloat(filledTrack,"scaleX",scale);
+                fillBar.setDuration(getResources().getInteger(R.integer.fill_duration));
+                fillBar.setAutoCancel(true);
+                fillBar.setInterpolator(new DecelerateInterpolator(2));
+                fillBar.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                    @Override
+                    public void onAnimationUpdate(ValueAnimator animation) {
+                        int percent = (int)(100.0f*animation.getAnimatedFraction());
+                        tvIndicator.setText((int)(1+start+(scale/emptyTrack.getMeasuredWidth()-start)*percent)+"%");
+
+                    }
+                });
+                fillBar.start();
+
+                ObjectAnimator moveIndicator = ObjectAnimator.ofFloat(indicator, "x", target);
+                moveIndicator.setDuration(getResources().getInteger(R.integer.fill_duration));
+                moveIndicator.setAutoCancel(true);
+                moveIndicator.setInterpolator(new DecelerateInterpolator(2));
+                moveIndicator.start();
             }
         });
-        fillBar.start();
-
-        ObjectAnimator moveIndicator = ObjectAnimator.ofFloat(indicator, "x", target);
-        moveIndicator.setDuration(getResources().getInteger(R.integer.fill_duration));
-        moveIndicator.setAutoCancel(true);
-        moveIndicator.setInterpolator(new DecelerateInterpolator(2));
-        moveIndicator.start();
     }
 
 }
