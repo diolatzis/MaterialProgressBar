@@ -192,6 +192,7 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
         ivIndicatorIcon.setLayoutParams(ivParams);
 
         tvIndicator = new TextView(context);
+        tvIndicator.setText("0%");
         tvIndicator.setTextSize(TypedValue.COMPLEX_UNIT_SP,getResources().getDimension(R.dimen.indicatorTextSize));
         tvIndicator.setTextColor(ContextCompat.getColor(context, textColor));
         LayoutParams tvParams = new LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
