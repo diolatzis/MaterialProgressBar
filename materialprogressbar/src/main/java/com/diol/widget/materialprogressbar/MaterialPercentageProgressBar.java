@@ -72,7 +72,6 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
         addView(filledTrack);
         addView(indicator);
 
-
         Utils.doOnceOnGlobalLayoutOfView(this, new Runnable() {
             @Override
             public void run() {
@@ -81,8 +80,6 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
                 for(View dot: dots) addView(dot);
             }
         });
-
-
     }
 
     private void setUpProps(Context context, AttributeSet attrs)
@@ -212,12 +209,12 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
 
     public void fillTo(final int step)
     {
-        Utils.doOnceOnGlobalLayoutOfView(this, new Runnable() {
+        Utils.runAfter(1000, new Runnable() {
             @Override
             public void run() {
-                int minStep = Math.min(step, steps);
+                int minstep = Math.min(step, steps);
 
-                final float target = dots.get(minStep-1).getX() - dots.get(0).getX();
+                final float target = dots.get(minstep-1).getX() - dots.get(0).getX();
 
                 final float start = (float)filledTrack.getMeasuredWidth()/(float)emptyTrack.getMeasuredWidth();
 
@@ -246,6 +243,11 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
                 moveIndicator.start();
             }
         });
+
+
+
+
+
     }
 
 }
