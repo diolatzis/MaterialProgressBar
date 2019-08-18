@@ -79,13 +79,6 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
                 dots = createDots(context);
 
                 for(View dot: dots) addView(dot);
-
-                Utils.doOnceOnGlobalLayoutOfView(dots.get(0), new Runnable() {
-                    @Override
-                    public void run() {
-                        fillTo(6);
-                    }
-                });
             }
         });
 
@@ -216,12 +209,17 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
     }
 
 
-    private void fillTo(int step)
+    public void fillTo(int step)
     {
-        float target = dots.get(step-1).getX() - dots.get(0).getX();
+        step = Math.min(step, steps);
+
+        final float target = dots.get(step-1).getX() - dots.get(0).getX();
+
+        final float start = (float)filledTrack.getMeasuredWidth()/(float)emptyTrack.getMeasuredWidth();
 
 
-        float scale = target/filledTrack.getMeasuredWidth();
+
+        final float scale = target/filledTrack.getMeasuredWidth();
 
         ObjectAnimator fillBar = ObjectAnimator.ofFloat(filledTrack,"scaleX",scale);
         fillBar.setDuration(getResources().getInteger(R.integer.fill_duration));
@@ -231,9 +229,7 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
             @Override
             public void onAnimationUpdate(ValueAnimator animation) {
                 int percent = (int)(100.0f*animation.getAnimatedFraction());
-
-
-                tvIndicator.setText(percent+"%");
+                tvIndicator.setText((int)(1+start+(scale/emptyTrack.getMeasuredWidth()-start)*percent)+"%");
 
             }
         });
