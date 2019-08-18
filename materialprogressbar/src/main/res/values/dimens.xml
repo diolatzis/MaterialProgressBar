@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="trackHeight">5dp</dimen>
+    <dimen name="indicatorSize">40dp</dimen>
+    <dimen name="dotsSize">5dp</dimen>
+    <dimen name="indicatorBotMargin">10dp</dimen>
+    <dimen name="indicatorTextSize">3.5sp</dimen>
+</resources>

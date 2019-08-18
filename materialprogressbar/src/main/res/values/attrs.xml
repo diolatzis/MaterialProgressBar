@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialPercentageProgressBar">
+        <attr name="filledTrackColor" format="reference" />
+        <attr name="emptyTrackColor" format="reference" />
+        <attr name="steps" format="integer"/>
+        <attr name="indicatorColor" format="reference"/>
+        <attr name="dotsColor" format="reference"/>
+        <attr name="textColor" format="reference"/>
+    </declare-styleable>
+</resources>
