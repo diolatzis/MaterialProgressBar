@@ -42,6 +42,7 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
     private int dotsColor = R.color.darkGrey;
     private float dotsSize = getResources().getDimension(R.dimen.dotsSize);
     private int textColor = R.color.white;
+    private int currentStep = 1;
 
     private TypedArray xmlAttrs;
 
@@ -209,7 +210,9 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
 
     public void fillTo(final int step)
     {
-        Utils.runAfter(1000, new Runnable() {
+        if(step == currentStep) return;
+
+        Utils.runAfter(500, new Runnable() {
             @Override
             public void run() {
                 int minstep = Math.min(step, steps);
@@ -235,6 +238,8 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
                     }
                 });
                 fillBar.start();
+
+                currentStep = step;
 
                 ObjectAnimator moveIndicator = ObjectAnimator.ofFloat(indicator, "x", target);
                 moveIndicator.setDuration(getResources().getInteger(R.integer.fill_duration));
