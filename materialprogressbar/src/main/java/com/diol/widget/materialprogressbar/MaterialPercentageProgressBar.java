@@ -248,11 +248,11 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
                 moveIndicator.start();
             }
         });
+    }
 
-
-
-
-
+    public void setSteps(int steps)
+    {
+        this.steps = steps;
     }
 
 }
