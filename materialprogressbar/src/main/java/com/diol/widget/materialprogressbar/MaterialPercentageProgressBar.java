@@ -217,11 +217,13 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
             public void run() {
                 int minstep = Math.min(step, steps);
 
+                if(dots.size() == 0) return;
+
                 final float target = dots.get(minstep-1).getX() - dots.get(0).getX();
 
+                if(!(filledTrack.getMeasuredWidth() > 0) && !(emptyTrack.getMeasuredWidth() > 0)) return;
+
                 final float start = (float)filledTrack.getMeasuredWidth()/(float)emptyTrack.getMeasuredWidth();
-
-
 
                 final float scale = target/filledTrack.getMeasuredWidth();
 
