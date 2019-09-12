@@ -64,6 +64,11 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
 
         setUpProps(context, attrs);
 
+        createViews();
+    }
+
+    private void createViews()
+    {
         emptyTrack = createEmptyTrack(context);
         filledTrack = createFilledTrack(context);
         indicator = createIndicator(context);
@@ -255,6 +260,10 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
     public void setSteps(int steps)
     {
         this.steps = steps;
+
+        removeAllViews();
+
+        createViews();
     }
 
 }
