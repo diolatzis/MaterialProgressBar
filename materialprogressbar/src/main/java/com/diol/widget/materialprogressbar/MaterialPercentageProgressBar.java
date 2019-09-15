@@ -266,4 +266,9 @@ public class MaterialPercentageProgressBar extends RelativeLayout {
         createViews();
     }
 
+    public int getSteps()
+    {
+        return steps;
+    }
+
 }
